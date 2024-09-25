@@ -3,9 +3,9 @@ services:
     container_name: react_app
     image: react_app
     build:
-      context: ./MGWebPro-Frontend
+      context: ./MGWebPro-FE
     volumes:
-      - ./MGWebPro-Frontend:/app
+      - ./MGWebPro-FE:/app
       - /app/node_modules
     ports:
       - "5173:5173"
@@ -14,11 +14,11 @@ services:
     image: django_app
     container_name: django_app
     build:
-      context: ./MGWebPro-Backend
+      context: ./MGWebPro-BE
     ports:
       - "8000:8000"
     volumes:
-      - ./MGWebPro-Backend:/app
+      - ./MGWebPro-BE:/app
     command: [ "./wait-for-it.sh", "-t", "30", "mysql:3306", "--", "python", "manage.py", "runserver", "0.0.0.0:8000" ]
     depends_on:
       - mysql
