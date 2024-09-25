@@ -29,7 +29,7 @@ services:
       - "3307:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=mgwebpro-db
+      - MYSQL_DATABASE=store-db
     volumes:
       - django_react_data:/data/db
       - ./dumps:/docker-entrypoint-initdb.d:ro
