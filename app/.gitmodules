@@ -1,6 +1,0 @@
-[submodule "app/MGWebPro-FE"]
-	path = app/MGWebPro-FE
-	url = https://github.com/Judith1290/MGWebPro-Frontend.git
-[submodule "app/MGWebPro-BE"]
-	path = app/MGWebPro-BE
-	url = https://github.com/Judith1290/MGWebPro-Backend.git
