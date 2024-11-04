@@ -1,25 +1,26 @@
 services:
-  react:
-    container_name: react_app
-    image: react_app
+  app:
+    container_name: react-production
+    image: react-production:prod
     build:
-      context: ./mg-webpro
-    volumes:
-      - ./mg-webpro:/app
-      - /app/node_modules
+      context: ./MGWebPro-FE
+      target: production
+      args:
+        - NODE_ENV=production
+      dockerfile: Dockerfile.prod
     ports:
-      - "5173:5173"
+      - 80:80
 
   django:
     image: django_app
     container_name: django_app
     build:
-      context: ./djangoApp
+      context: ./MGWebPro-BE
     ports:
       - "8000:8000"
     volumes:
-      - ./djangoApp:/app
-    command: ["./wait-for-it.sh", "-t", "30", "mysql:3306", "--", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+      - ./MGWebPro-BE:/app
+    command: [ "./wait-for-it.sh", "-t", "30", "mysql:3306", "--", "python", "manage.py", "runserver", "0.0.0.0:8000" ]
     depends_on:
       - mysql
 
@@ -31,8 +32,8 @@ services:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=store-db
     volumes:
-          - django_react_data:/data/db
-          - ./dumps:/docker-entrypoint-initdb.d:ro
+      - django_react_data:/data/db
+      - ./dumps:/docker-entrypoint-initdb.d:ro
 
 volumes:
   django_react_data:
